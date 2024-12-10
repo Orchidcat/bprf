@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta http-equiv="Cache-control" content="no-cache" charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@0.6.0"></script>
+<!--    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto">-->
+
+    <style>
+#myChart {
+margin-top: 10px;
+padding: 10px;
+border-radius: 25px;
+border-style: solid;
+border-color: black;
+text-align: center;
+}
+h4 {
+margin-top: 20px;
+}
+body {
+font-family: "Roboto";
+}
+</style>
+</head>
+<body>
+<p>home page</p>
+
+<!--<ul class="movie-list">-->
+<!--    {% for lable in lables %}-->
+<!--      '当前值为:'+ lable-->
+<!--    {% endfor %}-->
+<!--</ul>-->
+
+
+ <center>
+<h4>tempData info</h4>
+<canvas id="myChart" style="width:500px;max-width:800px;height:200px"></canvas>
+ </center>
+
+
+
+<script>
+    var xValues = {{ lables|tojson }};
+    var yValues = {{ values|tojson }};
+
+    function getRandomColor() { //generates random background colors for display
+      var colors = [];
+      for (var i = 0; i < 100; i++) {
+        var letters = '0123456789ABCDEF'.split('');
+        var color = '#';
+        for (var x = 0; x < 6; x++) {
+          color += letters[Math.floor(Math.random() * 16)];
+        }
+        colors.push(color);
+    }
+  return colors;
+}
+
+new Chart("myChart",{
+    type:'line',
+    data: {
+       labels: xValues,
+       datasets:[{
+        label: "Temp",
+        data: yValues,
+        fill: false,
+        borderColor: `#FF9800`,
+        tension: 0.1,
+         fillColor : "rgba(220,220,220,0.5)",
+
+       }],
+       options:{
+        responsive: true,
+        scales:{
+            y:{
+                min:22,
+                max:28,
+            }
+                }
+       }
+
+    }
+});
+
+
+
+
+
+<!--new Chart("myChart", {-->
+<!--  plugins: [ChartDataLabels],-->
+<!--  type: "doughnut",-->
+<!--  data: {-->
+<!--    labels: xValues,-->
+<!--    datasets: [{-->
+<!--      backgroundColor: getRandomColor(),-->
+<!--      borderWidth: 5,-->
+<!--      data: yValues-->
+<!--    }]-->
+<!--  },-->
+<!-- options: {-->
+<!--  responsive: true,-->
+<!--  maintainAspectRatio: false,-->
+<!--  tooltips:-->
+<!--  {-->
+<!--   enabled: true,-->
+<!--   titleFontSize: 25,-->
+<!--   bodyFontSize: 25-->
+<!--  },-->
+<!--    legend: {-->
+<!--                        labels: {-->
+<!--                                fontSize: 17,-->
+<!--    fontColor: "black",-->
+<!--                },-->
+
+<!--                },-->
+<!-- }-->
+<!--});-->
+
+
+
+
+
+</script>
+
+
+
+
+</body>
+</html>
